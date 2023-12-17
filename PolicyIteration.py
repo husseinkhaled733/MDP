@@ -61,6 +61,7 @@ def compute_func(i, j, d, V):
 def policy_evaluation(V, policy):
     while True:
         delta = 0
+        # Vi-1
         temp = [row[:] for row in V]
         for i in range(3):
             for j in range(3):
@@ -79,10 +80,13 @@ def policy_improvement(V, policy):
         for j in range(3):
             old_action = policy[i][j]
             values = []
+            # Compute values for all actions
             for d in range(4):
                 values.append(compute_func(i, j, d, V))
+            # Get the best action
             best_action = actions[values.index(max(values))]
             policy[i][j] = best_action
+            # Check if policy has changed
             if old_action != best_action:
                 policy_stable = False
     return policy_stable
